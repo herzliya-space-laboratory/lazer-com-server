@@ -31,6 +31,11 @@
 *.out
 *.app
 
-output/
-build/
-logs/*/
+
+logs/info/*
+logs/warninig/*
+logs/error/*
+logs/fatal/*
+
+build/*
+output/*
