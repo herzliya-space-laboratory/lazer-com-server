@@ -7,6 +7,7 @@
 #define LAZER_COMM_LOG_WARNING(toLog) LOG(WARNING) << toLog;
 #define LAZER_COMM_LOG_ERROR(toLog) LOG(ERROR) << toLog;
 #define LAZER_COMM_LOG_FATAL(toLog) LOG(FATAL) << toLog;
+
 #define LAZER_COMM_CONDTION_LOG_INFO(toLog, condition) LOG_IF(INFO, condition) << toLog;
 #define LAZER_COMM_CONDTION_LOG_WARNING(toLog, condition) LOG_IF(WARNING, condition) << toLog;
 #define LAZER_COMM_CONDTION_LOG_ERROR(toLog, condition) LOG_IF(ERROR, condition) << toLog;

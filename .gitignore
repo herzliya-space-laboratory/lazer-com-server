@@ -32,10 +32,10 @@
 *.app
 
 
-# logs/info/*
-# logs/warninig/*
-# logs/error/*
-# logs/fatal/*
+logs/info/
+logs/warninig/
+logs/error/
+logs/fatal/
 
-# build/*
-# output/*
+build/
+output/
