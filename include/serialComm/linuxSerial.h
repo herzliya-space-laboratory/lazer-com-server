@@ -2,7 +2,8 @@
 #include "serialComm.h"
 
 
-class linuxSerial : serialComm{
+class linuxSerial : public serialComm
+{
     private:
         int datarate;
         int serialPort;
@@ -10,15 +11,15 @@ class linuxSerial : serialComm{
     public:
         linuxSerial(int datarate) : datarate(datarate){}
 
-        int establishConnection(char *portName);
+        virtual int establishConnection(char *portName) override;
 
-        int openPort(char *portName, struct termios *tty);
+        virtual int openPort(char *portName, struct termios *tty) override;
 
-        int configPort(struct termios *port);
+        virtual int configPort(termios *port) override;
 
-        int sendData(unsigned char *data);
+        virtual int sendData(unsigned char *data) override;
 
-        int readData(int serialPort, char* readBuff);
+        virtual int readData(int serialPort, char* readBuff) override;
 
 };
 

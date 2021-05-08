@@ -10,17 +10,17 @@
 
 
 
-int linuxSerial::openPort(char *portName, struct termios *tty){
+int linuxSerial::openPort(char *portName, termios *tty){
     int serial_port = open(portName, O_RDWR);
 
-    if (serialPort < 0){ LAZER_COMM_LOG_INFO("an error while open serial port"); }
+    LazerComm_CONDTION_LOG_ERROR("an error while open serial port", serialPort < 0);
     configPort(tty);
     serialPort = serial_port;
     return 1;
 }
 
 
-int linuxSerial::configPort(struct termios *port){
+int linuxSerial::configPort(termios *port){
     port->c_cflag &= ~PARENB;
     port->c_cflag &= ~CSTOPB;
     port->c_cflag |= CS8;
@@ -37,10 +37,11 @@ int linuxSerial::configPort(struct termios *port){
     cfsetispeed(port, B9600);
     cfsetospeed(port, B9600);
 
-    if (tcsetattr(serialPort, TCSANOW, port) != 0){
-         LAZER_COMM_LOG_INFO("an error while saving termios attributes");
+    if (tcsetattr(serialPort, TCSANOW, port) != 0)
+    {
+         LazerComm_LOG_ERROR("an error while saving termios attributes");
          return -1;
-        }
+    }
 
     return 0; 
 }
@@ -56,8 +57,9 @@ int linuxSerial::readData(int serialPort, char* readBuff){
 }
  
 int linuxSerial::establishConnection(char *portName){
-    struct termios tty;
-    if (tcgetattr(serialPort, &tty) != 0){printf("h");}
+    termios tty;
+    LazerComm_CONDTION_LOG_ERROR("h", tcgetattr(serialPort, &tty) != 0);
+
     openPort(portName, &tty);
     return 1;
 }

@@ -3,13 +3,13 @@
 #include "sgp4Tracker.h"
     #include <chrono>
 
-using namespace Lazer_comm;
+using namespace LazerComm;
 
 
 int main()
 {
     logger::init("./logs/", "lazer-comm");
-    LAZER_COMM_LOG_INFO("start");
+    LazerComm_LOG_INFO("start");
     
     tracker *tracker = new sgp4Tracker();
     tracker->createObserver(32.222096, 34.824090, 36);
@@ -25,6 +25,6 @@ int main()
     double az = tracker->getCurrentAzimuth();
     double el = tracker->getCurrentElevation();
 
-    LAZER_COMM_LOG_INFO("az: " << az << ", el: " << el);
+    LazerComm_LOG_INFO("az: " << az << ", el: " << el);
     return 0;
 }

@@ -26,9 +26,9 @@ TEST_INC_DIRS := $(shell find $(TEST_DIRS) -type d)
 
 INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 
-CPPFLAGS ?=  $(INC_FLAGS)  -MMD -MP  -g -Wall -lm -ldl
+CPPFLAGS ?=  $(INC_FLAGS)  -MMD -MP  -g -Wall 
 TEST_CPP_FLAGE = -lgtest -lgtest_main -lgmock  
-
+LDFLAGS = -lm -ldl
 CFLAGS := -lstdc++ -lglog 
 CXXFLAGS += -g -Wall -Wextra -pthread
 
