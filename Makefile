@@ -26,7 +26,7 @@ TEST_INC_DIRS := $(shell find $(TEST_DIRS) -type d)
 
 INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 
-CPPFLAGS ?=  $(INC_FLAGS)  -MMD -MP  -g -Wall
+CPPFLAGS ?=  $(INC_FLAGS)  -MMD -MP  -g -Wall -lm -ldl
 TEST_CPP_FLAGE = -lgtest -lgtest_main -lgmock  
 
 CFLAGS := -lstdc++ -lglog 
@@ -40,6 +40,16 @@ $(OUTPUT_DIR)/$(TARGET_EXEC): $(OBJS)
 
 # c++ source
 $(BUILD_DIR)/%.cpp.o: %.cpp
+	$(MKDIR_P) $(dir $@)
+	$(CC)  $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+
+# c++ source
+$(BUILD_DIR)/%.cc.o: %.cc
+	$(MKDIR_P) $(dir $@)
+	$(CC)  $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+
+# c++ source
+$(BUILD_DIR)/%.c.o: %.c
 	$(MKDIR_P) $(dir $@)
 	$(CC)  $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
