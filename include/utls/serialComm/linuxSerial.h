@@ -12,13 +12,14 @@ class linuxSerial : serialComm{
 
         int establishConnection(char *portName);
 
-        int openPort(char *portName, struct termios *tty);
-
-        int configPort(struct termios *port);
-
         int sendData(unsigned char *data);
 
         int readData(int serialPort, char* readBuff);
+
+    private:
+        int openPort(char *portName, struct termios *tty);
+
+        int configPort(struct termios *port);
 
 };
 
