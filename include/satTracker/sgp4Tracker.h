@@ -2,11 +2,11 @@
 #include <CoordGeodetic.h>
 #include <Observer.h>
 #include <SGP4.h>
-#include "tracker.h"
+#include "satTracker.h"
 
 namespace LazerComm
 {
-    class sgp4Tracker : public tracker{
+    class sgp4Tracker : public satTracker{
         private:
             Observer *observer;
             Tle *tle;

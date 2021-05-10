@@ -1,8 +1,8 @@
 
 namespace LazerComm
 {
-    class tracker{
-
+    class satTracker
+    {
         public:
             virtual void createObserver(double lon, double lat, double alt) = 0;
 

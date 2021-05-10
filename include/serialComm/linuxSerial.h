@@ -1,25 +1,26 @@
 #pragma once
 #include "serialComm.h"
 
-
-class linuxSerial : public serialComm
+namespace LazerComm
 {
-    private:
-        int datarate;
-        int serialPort;
+    class linuxSerial : public serialComm
+    {
+        private:
+            int datarate;
+            int serialPort;
+            
+            int openPort(char *portName, struct termios *tty);
+            int configPort(termios *port);
+        public:
+            linuxSerial(int datarate) : datarate(datarate){}
 
-    public:
-        linuxSerial(int datarate) : datarate(datarate){}
+            virtual int establishConnection(char *portName) override;
 
-        virtual int establishConnection(char *portName) override;
 
-        virtual int openPort(char *portName, struct termios *tty) override;
+            virtual int sendData(unsigned char *data) override;
 
-        virtual int configPort(termios *port) override;
+            virtual int readData(int serialPort, char* readBuff) override;
 
-        virtual int sendData(unsigned char *data) override;
-
-        virtual int readData(int serialPort, char* readBuff) override;
-
-};
+    };
+}
 

@@ -10,14 +10,16 @@
 
 
 
-int linuxSerial::openPort(char *portName, termios *tty){
-    int serial_port = open(portName, O_RDWR);
+namespace LazerComm
+{
+    int linuxSerial::openPort(char *portName, termios *tty){
+        int serial_port = open(portName, O_RDWR);
 
-    LazerComm_CONDTION_LOG_ERROR("an error while open serial port", serialPort < 0);
-    configPort(tty);
-    serialPort = serial_port;
-    return 1;
-}
+        LazerComm_CONDTION_LOG_ERROR("an error while open serial port", serialPort < 0);
+        configPort(tty);
+        serialPort = serial_port;
+        return 1;
+    }
 
 
 int linuxSerial::configPort(termios *port){
@@ -37,29 +39,30 @@ int linuxSerial::configPort(termios *port){
     cfsetispeed(port, datarate);
     cfsetospeed(port, datarate);
 
-    if (tcsetattr(serialPort, TCSANOW, port) != 0)
-    {
-         LazerComm_LOG_ERROR("an error while saving termios attributes");
-         return -1;
+        if (tcsetattr(serialPort, TCSANOW, port) != 0)
+        {
+            LazerComm_LOG_ERROR("an error while saving termios attributes");
+            return -1;
+        }
+
+        return 0; 
     }
 
-    return 0; 
-}
+    int linuxSerial::sendData(unsigned char *data){
+        write(serialPort, data, sizeof(data));
+        return 1;
+    }
 
-int linuxSerial::sendData(unsigned char *data){
-    write(serialPort, data, sizeof(data));
-    return 1;
-}
+    int linuxSerial::readData(int serialPort, char* readBuff){
+        int num_of_bytes = read(serialPort, &readBuff, sizeof(readBuff));
+        return num_of_bytes;
+    }
+    
+    int linuxSerial::establishConnection(char *portName){
+        termios tty;
+        LazerComm_CONDTION_LOG_ERROR("h", tcgetattr(serialPort, &tty) != 0);
 
-int linuxSerial::readData(int serialPort, char* readBuff){
-    int num_of_bytes = read(serialPort, &readBuff, sizeof(readBuff));
-    return num_of_bytes;
-}
- 
-int linuxSerial::establishConnection(char *portName){
-    termios tty;
-    LazerComm_CONDTION_LOG_ERROR("h", tcgetattr(serialPort, &tty) != 0);
-
-    openPort(portName, &tty);
-    return 1;
+        openPort(portName, &tty);
+        return 1;
+    }
 }

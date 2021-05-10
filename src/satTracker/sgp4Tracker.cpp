@@ -18,7 +18,6 @@ namespace LazerComm
         SGP4 sgp4(*tle);
         Eci eci = sgp4.FindPosition(time);
         CoordTopocentric topo = observer->GetLookAngle(eci);
-        LazerComm_LOG_INFO(time << "\n " << topo << "\n ");
         return topo.azimuth;
     }
 
@@ -27,7 +26,6 @@ namespace LazerComm
         SGP4 sgp4(*tle);
         Eci eci = sgp4.FindPosition(time);
         CoordTopocentric topo = observer->GetLookAngle(eci);
-        LazerComm_LOG_INFO(time << " " << topo << " ");
         return topo.elevation;
     }
 }
