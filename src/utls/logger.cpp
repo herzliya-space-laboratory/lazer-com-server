@@ -1,7 +1,7 @@
 #include "logger.h"
 #include <stdio.h>
 
-namespace Lazer_comm
+namespace LazerComm
 {
     static bool wasInit = false; 
     void logger::init(const std::string& pathToLogs, const std::string& projectName)
