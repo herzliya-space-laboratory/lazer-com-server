@@ -1,6 +1,7 @@
 #include "sgp4Tracker.h"
 #include "logger.h"
 
+#include <glm/glm.hpp>
 
 namespace LazerComm
 {
@@ -27,5 +28,13 @@ namespace LazerComm
         Eci eci = sgp4.FindPosition(time);
         CoordTopocentric topo = observer->GetLookAngle(eci);
         return topo.elevation;
+    }
+
+    glm::tvec2<double> sgp4Tracker::getCurrentAzimuthAndElevation(){
+        DateTime time = DateTime::Now();
+        SGP4 sgp4(*tle);
+        Eci eci = sgp4.FindPosition(time);
+        CoordTopocentric topo = observer->GetLookAngle(eci);
+        return glm::tvec2<double>(topo.azimuth, topo.elevation);
     }
 }

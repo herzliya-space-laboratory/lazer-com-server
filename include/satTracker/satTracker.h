@@ -1,3 +1,6 @@
+#pragma once
+
+#include <glm/glm.hpp>
 
 namespace LazerComm
 {
@@ -11,6 +14,7 @@ namespace LazerComm
             virtual double getCurrentAzimuth() = 0;
 
             virtual double getCurrentElevation() = 0;
-
+            
+            virtual glm::tvec2<double> getCurrentAzimuthAndElevation() = 0;
     };
 }

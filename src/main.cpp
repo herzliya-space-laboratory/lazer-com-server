@@ -1,16 +1,21 @@
 #include "logger.h"
+#include "serialComm.h"
 #include "linuxSerial.h"
-#include "sgp4Tracker.h"
-    #include <chrono>
 
+#include "satTracker.h"
+#include "sgp4Tracker.h"
+
+#include "closeLoop.h"
 using namespace LazerComm;
 
 
 int main()
 {
     logger::init("./logs/", "lazer-comm");
-        
+    serialComm *ardunoSerial = new linuxSerial(9600, (char *)"/dev/ttyACM0"); 
     satTracker *tracker = new sgp4Tracker();
+
+    ardunoSerial->establishConnection();
     tracker->createObserver(32.222096, 34.824090, 36);
     char *tle[3] = 
     {
@@ -21,9 +26,9 @@ int main()
 
     tracker->createTleObj(tle);
 
-    double az = tracker->getCurrentAzimuth();
-    double el = tracker->getCurrentElevation();
+    closeLoop::init(tracker, ardunoSerial);
+    closeLoop::run();
+    closeLoop::close();
 
-    LazerComm_LOG_INFO("az: " << az << ", el: " << el);
     return 0;
 }

@@ -1,7 +1,11 @@
+#pragma once
+
 #include <CoordTopocentric.h>
 #include <CoordGeodetic.h>
 #include <Observer.h>
 #include <SGP4.h>
+#include <glm/glm.hpp>
+
 #include "satTracker.h"
 
 namespace LazerComm
@@ -18,5 +22,7 @@ namespace LazerComm
             virtual double getCurrentAzimuth() override;
 
             virtual double getCurrentElevation() override;
+            virtual glm::tvec2<double> getCurrentAzimuthAndElevation() override;
+ 
     };
 }

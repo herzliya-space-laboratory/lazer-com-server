@@ -1,3 +1,5 @@
+#pragma once
+
 #include "satTracker.h"
 #include "serialComm.h"
 
