@@ -12,17 +12,17 @@
 
 namespace LazerComm
 {
-    int linuxSerial::openPort(char *portName, termios *tty){
+    int linuxSerial::openPort({
         int serial_port = open(portName, O_RDWR);
 
         LazerComm_CONDTION_LOG_ERROR("an error while open serial port", serialPort < 0);
-        configPort(tty);
+        configPort(port);
         serialPort = serial_port;
-        return 1;
+        return 0;
     }
 
 
-int linuxSerial::configPort(termios *port){
+int linuxSerial::configPort(){
     port->c_cflag &= ~PARENB;
     port->c_cflag &= ~CSTOPB;
     port->c_cflag |= CS8;
@@ -53,7 +53,7 @@ int linuxSerial::configPort(termios *port){
         return 1;
     }
 
-    int linuxSerial::readData(int serialPort, char* readBuff){
+    int linuxSerial::readData(char* readBuff){
         int num_of_bytes = read(serialPort, &readBuff, sizeof(readBuff));
         return num_of_bytes;
     }

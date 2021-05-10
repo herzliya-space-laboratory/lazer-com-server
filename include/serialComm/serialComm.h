@@ -8,7 +8,7 @@ namespace LazerComm
 
             virtual int sendData(unsigned char *data) = 0;
             
-            virtual int readData(int serialPort, char* readBuff) = 0;
+            virtual int readData(char* readBuff) = 0;
     };
 }
 
