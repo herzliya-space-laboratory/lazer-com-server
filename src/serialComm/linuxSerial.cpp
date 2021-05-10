@@ -34,8 +34,8 @@ int linuxSerial::configPort(struct termios *port){
     port->c_oflag &= ~OPOST;
     port->c_oflag &= ~ONLCR;
     port->c_cc[VTIME] = 10; //wait up to 10 deciseconds until returning
-    cfsetispeed(port, B9600);
-    cfsetospeed(port, B9600);
+    cfsetispeed(port, datarate);
+    cfsetospeed(port, datarate);
 
     if (tcsetattr(serialPort, TCSANOW, port) != 0){
          LAZER_COMM_LOG_INFO("an error while saving termios attributes");
